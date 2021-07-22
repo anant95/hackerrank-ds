@@ -136,6 +136,23 @@ class linkedList{
 		}
 		return 0;
 	}
+	Node* findMergePoint(Node* head1, Node* head2){
+		Node* point1 = head1;
+		Node* point2 = head2;
+		if(!point1 || !point2)
+			return NULL;
+		while(point1 != point2){
+			if(!point1)
+				point1 = head2;
+			else
+				point1 = point1 -> next;
+			if(!point2)
+				point2 = head1;
+			else
+				point2 = point2 -> next;
+		}
+		return point1;
+	}
 };
 int main(){
 	linkedList ll;
@@ -151,6 +168,15 @@ int main(){
 			scanf("%d", &data);
 			head1 = ll.insert_tail(data,head1);
 		}
-		printf("%d",ll.cycle_detect(head1));
+		scanf("%d", &n);
+		scanf("%d",&data);
+		Node* head2 = new Node(data);
+		for(int i = 0; i<n-1; i++){
+			scanf("%d", &data);
+			head2 = ll.insert_tail(data,head2);
+		}
+		Node* m = ll.findMergePoint(head1, head2);
+		if(m)
+			printf("%d ", m -> data);
 		}
 }
